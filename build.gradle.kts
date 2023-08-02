@@ -5,7 +5,7 @@ plugins {
 
     id("org.jetbrains.kotlinx.kover")
 
-    id("io.github.gradle-nexus.publish-plugin")
+    `maven-publish`
 }
 
 @Suppress("PropertyName")
@@ -31,9 +31,15 @@ kover {
     coverageEngine.set(kotlinx.kover.api.CoverageEngine.INTELLIJ)
 }
 
-nexusPublishing {
+publishing {
     repositories {
-        sonatype()
+        maven {
+            url = uri("https://maven.pkg.jetbrains.space/varsa/p/github/maven")
+            credentials {
+                username = System.getenv("spaceUsername")
+                password = System.getenv("spacePassword")
+            }
+        }
     }
 }
 

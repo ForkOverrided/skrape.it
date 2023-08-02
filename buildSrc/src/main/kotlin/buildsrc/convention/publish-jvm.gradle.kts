@@ -29,6 +29,13 @@ publishing {
         maven(rootProject.layout.buildDirectory.dir("maven-internal")) {
             name = "LocalProjectDir"
         }
+        maven {
+            url = uri("https://maven.pkg.jetbrains.space/varsa/p/github/maven")
+            credentials {
+                username = System.getenv("spaceUsername")
+                password = System.getenv("spacePassword")
+            }
+        }
     }
     publications.create<MavenPublication>("mavenJava") {
         from(components["java"])
